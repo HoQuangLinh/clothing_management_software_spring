@@ -24,7 +24,7 @@ public class UserController {
     @PostMapping("api/user/login")
     public List<User> Login(@RequestBody User user){
         System.out.println(user.getUsername()+" "+user.getPassword());
-        userService.save(user);
+        //userService.save(user);
         return userService.getAllUsers();
 
     }
