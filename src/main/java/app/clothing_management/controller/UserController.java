@@ -3,10 +3,8 @@ package app.clothing_management.controller;
 import app.clothing_management.model.User;
 import app.clothing_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,15 +15,30 @@ public class UserController {
     public  UserController(UserService userService){
         this.userService=userService;
     }
+    //Lấy tất cả các user
     @GetMapping("/api/users")
     public List<User> getAll(){
         return userService.getAllUsers();
     }
-    @PostMapping("api/user/login")
-    public List<User> Login(@RequestBody User user){
-        System.out.println(user.getUsername()+" "+user.getPassword());
-        userService.save(user);
-        return userService.getAllUsers();
-
+    //Đăng nhập
+    @PostMapping("api/users/login")
+    public ResponseEntity<?> login(@RequestBody User user){
+        return userService.login(user.getUsername(), user.getPassword());
+    }
+    //Lọc user theo tên, số điện thoại
+    @GetMapping("/api/users/filter")
+    public List<User> filter(@RequestParam("key") String key){
+        return userService.filterUser(key);
+    }
+    //Tạo user mới
+    @PostMapping("/api/users/create")
+    public ResponseEntity<String> saveUser(@RequestBody User user){
+           return userService.save(user);
+    }
+    // Cập nhập user
+    @PutMapping("/api/users/update/{id}")
+    public ResponseEntity<String> updateUser(@RequestBody User user,
+                                             @PathVariable("id") String id){
+        return userService.update(user, id);
     }
 }
