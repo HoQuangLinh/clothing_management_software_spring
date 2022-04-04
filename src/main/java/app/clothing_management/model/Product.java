@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 
+@Data
 @Document("products")
 public class Product {
     @Id
@@ -18,6 +19,7 @@ public class Product {
     private  Double salePrice;
     private  String imageUrl;
     private  String qrCodeUrl;
-
+    // Referent to Category
+    private String categoryId;
 
 }
