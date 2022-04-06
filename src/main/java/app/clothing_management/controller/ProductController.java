@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 public class ProductController {
     // get All Product
@@ -27,9 +28,9 @@ public class ProductController {
      *
      */
     @PostMapping(value = "/api/products/create",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Product createProduct(@RequestPart Product product, @RequestPart MultipartFile image){
-
-        return productService.save(product);
+    public String createProduct(@RequestPart Product product ){
+        //return productService.save(product);
+        return product.name;
     }
 
 

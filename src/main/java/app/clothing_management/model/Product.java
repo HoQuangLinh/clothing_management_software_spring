@@ -7,19 +7,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 
-@Data
-@Document("products")
+//@Data
+//@Document("products")
 public class Product {
-    @Id
-    private  String id;
-    private  String name;
-    private  Double originPrice;
-    private  Double costPrice;
-    private  Double discount;
-    private  Double salePrice;
-    private  String imageUrl;
-    private  String qrCodeUrl;
+   // @Id
+   // public   String id;
+    public   String name;
+//    private  Double originPrice;
+//    private  Double costPrice;
+//    private  Double discount;
+//    private  Double salePrice;
+//    private  String imageUrl;
+//    private  String qrCodeUrl;
     // Referent to Category
-    private String categoryId;
+    //private String categoryId;
 
 }
