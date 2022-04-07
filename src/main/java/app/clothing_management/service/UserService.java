@@ -54,7 +54,7 @@ public class UserService {
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Update user successfully",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Update user successfully",HttpStatus.OK);
     }
 
     public ResponseEntity<?> login(String username, String password){

@@ -6,8 +6,8 @@ import app.clothing_management.service.ProductService;
 
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,31 +24,52 @@ public class ProductController {
     @Autowired
     CloudinaryConfig cloudinaryConfig;
     @GetMapping("/api/products")
-    public String getAllProducts(){
-
-        return "Hekki";
-        //return  productService.getAllProducts();
+    public List<Product> getAllProducts(){
+        return  productService.getAllProducts();
     }
 
     //create a Product
-    /*
-     *
+    /* input fields:
+        + categoryId
+        + name
+        + costPrice
+        + discount
+        + salePrice
+        + originPrice
+        + image
+
+      * return Object Product
+
      *
      */
-    @PostMapping(value = "/api/products/create",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String createProduct(Product product, @RequestParam(required = false) MultipartFile file ) throws IOException {
+    @PostMapping(value = "/api/products/add",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Product createProduct(Product product, @RequestParam(required = false) MultipartFile image )  {
         //return productService.save(product);
-        if(file!=null){
-            Map uploadResult=cloudinaryConfig.
-                    upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
-          String x=  uploadResult.get("url").toString();
-          return x;
-        }
-        return "No file";
-
+        UploadImage(product, image);
+        return productService.save(product);
 
     }
 
+    private void UploadImage(Product product, @RequestParam(required = false) MultipartFile image) {
+        if(image!=null){
+            Map uploadResult= null;
+            try {
+                uploadResult = cloudinaryConfig.
+                        upload(image.getBytes(), ObjectUtils.asMap("resource_type", "auto", "overwrite", true));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            product.setImageUrl(uploadResult.get("url").toString()) ;
+
+        }
+    }
+
+    //Update product
+    @PutMapping(value = "/api/products/update/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity updateProduct(Product product, @PathVariable("id") String id,@RequestParam(required = false) MultipartFile image){
+        UploadImage(product, image);
+        return productService.update(product,id);
+    }
 
 
 }

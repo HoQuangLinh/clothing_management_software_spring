@@ -24,9 +24,6 @@ import java.util.logging.Logger;
 @SpringBootApplication
 @EnableSwagger2
 
-
-
-
 public class ClothingManagementApplication {
 
 	public static void main(String[] args) {
@@ -35,7 +32,6 @@ public class ClothingManagementApplication {
 	}
 
 	@Bean
-
 	public Docket productApi(){
 		return  new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("app.clothing_management")).build();
