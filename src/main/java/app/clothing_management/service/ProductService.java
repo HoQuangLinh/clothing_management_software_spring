@@ -13,6 +13,7 @@ import java.util.List;
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
+    public Product getProductById(String id){return productRepository.findById(id).get();}
     public List<Product> getAllProducts(){
         return productRepository.findAll();
     }
