@@ -40,4 +40,9 @@ public class CustomerController {
                                                        @RequestParam("maxPoint") int maxPoint){
         return customerService.getCustomerByRangeOfPoint(minPoint, maxPoint);
     }
+    //Lấy Top 1 customer theo điểm tích lũy
+    @GetMapping("/filterMaxPoint")
+    public Customer filterCustomerMaxPoint(){
+        return customerService.getCustomerMaxPoint();
+    }
 }
