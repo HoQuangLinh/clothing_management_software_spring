@@ -83,6 +83,7 @@ public class UserService {
         }
         return null;
     }
+
     public String hashMD5(String str) throws NoSuchAlgorithmException {
         MessageDigest msg = MessageDigest.getInstance("MD5");
         byte[] hash = msg.digest(str.getBytes(StandardCharsets.UTF_8));
@@ -92,5 +93,14 @@ public class UserService {
             s.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
         }
         return s.toString();
+    }
+
+    public ResponseEntity<String> delete(String id){
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userRepository.delete(user.get());
+            return new ResponseEntity<>("Delete user successfully",HttpStatus.OK);
+        }
+        return null;
     }
 }
