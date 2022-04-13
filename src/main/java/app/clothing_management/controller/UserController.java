@@ -50,7 +50,11 @@ public class UserController {
         UploadImage(user, image);
         return userService.save(user);
     }
-
+    // xóa user
+    @PostMapping("/api/users/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") String id){
+        return userService.delete(id);
+    }
     // Cập nhập user
     @PutMapping("/api/users/update/{id}")
     public ResponseEntity<String> updateUser(User user,
@@ -59,6 +63,7 @@ public class UserController {
         UploadImage(user, image);
         return userService.update(user, id);
     }
+
     private void UploadImage(User user, @RequestParam(required = false) MultipartFile image) {
         if(image!=null){
             Map uploadResult= null;
