@@ -38,6 +38,13 @@ public class UserController {
     public ResponseEntity<?> login(User user){
         return userService.login(user.getUsername(), user.getPassword());
     }
+    //Lọc theo chức vụ
+    @GetMapping("/api/users/filterByPositon")
+    public  List<User> filterByPosition(@RequestParam("position") String position){
+        System.out.println(position);
+        return userService.getUsersByPosition(position);
+    }
+
     //Lọc user theo tên, số điện thoại
     @GetMapping("/api/users/filter")
     public List<User> filter(@RequestParam("key") String key){

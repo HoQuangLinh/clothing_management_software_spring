@@ -43,7 +43,9 @@ public class UserService {
     public List<User> filterUser(String key) {
         return userRepository.getUsersByNameOrPhone(key);
     }
-
+    public List<User> getUsersByPosition(String position){
+        return userRepository.getUsersByPosition(position);
+    }
     public ResponseEntity<String> update(User user, String id){
         try {
             Optional<User> userData = userRepository.findById(id);

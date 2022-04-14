@@ -13,4 +13,7 @@ public interface UserRepository extends MongoRepository<User,String> {
 
     @Query("{username : ?0}")
     Optional<User> getUserByUsername(String username);
+    @Query("{position : ?0}")
+    List<User> getUsersByPosition(String position);
+
 }
