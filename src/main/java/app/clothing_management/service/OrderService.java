@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class OrderService {
@@ -35,5 +37,46 @@ public class OrderService {
     //Lấy tất cả order
     public List<Order> getOrders(){
        return orderRepository.findAll();
+    }
+    //Lọc order theo thời gian
+    public List<Order> getOrdersByDate(Date begin, Date end) {
+        return orderRepository.getOrdersByRangeOfDate(begin, end);
+    }
+    //Lọc order theo tên nhân viên bán
+    public List<Order> getOrdersByStaffName(String key){
+        List<Order> orders  = orderRepository.findAll();
+        List<Order> result = new ArrayList<>();
+        for (Order o : orders) {
+            if(o.getUser().getFullname().toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT))){
+                result.add(o);
+            }
+        }
+        return result;
+    }
+    //Lọc order theo tên khách hàng
+    public List<Order> getOrdersByCustomerName(String key){
+        List<Order> orders  = orderRepository.findAll();
+        List<Order> result = new ArrayList<>();
+        for (Order o : orders) {
+            if(o.getCustomer().getName().toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT))){
+                result.add(o);
+            }
+        }
+        return result;
+    }
+    //Lọc theo id của Order
+    public List<Order> getOrdersById(String key){
+        List<Order> orders  = orderRepository.findAll();
+        List<Order> result = new ArrayList<>();
+        for (Order o : orders) {
+            if(o.getId().contains(key.toLowerCase(Locale.ROOT))){
+                result.add(o);
+            }
+        }
+        return result;
+    }
+    //Lọc order theo trạng thái
+    public List<Order> getOrderByStatus(String status){
+        return orderRepository.findOrderByStatus(status);
     }
 }
