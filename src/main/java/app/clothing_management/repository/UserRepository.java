@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends MongoRepository<User,String> {
-    @Query("{$or:[{id: /?0/i},{fullname : /?0/i},{phone : /?0/i}]}")
+    @Query("{$or:[{id: ?0},{fullname : {$regex : ?0, $options: 'i'}},{phone :{$regex : ?0}}]}")
     List<User> getUsersByNameOrPhone(String key);
 
     @Query("{username : ?0}")

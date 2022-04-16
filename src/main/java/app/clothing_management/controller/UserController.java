@@ -6,6 +6,7 @@ import app.clothing_management.service.UserService;
 
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ public class UserController {
     //Lọc user theo tên, số điện thoại
     @GetMapping("/api/users/filter")
     public List<User> filter(@RequestParam("key") String key){
+
         return userService.filterUser(key);
     }
     //Tạo user mới
