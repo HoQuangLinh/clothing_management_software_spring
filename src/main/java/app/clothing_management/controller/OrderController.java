@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -77,5 +78,31 @@ public class OrderController {
             }
         }
         return orderDetails;
+    }
+    //Lọc order theo khoảng ngày
+    @GetMapping("/filterDate")
+    public List<Order> getOrdersByRangeOfDate(@RequestParam("begin") Date begin,
+                                              @RequestParam("end") Date end){
+        return orderService.getOrdersByDate(begin, end);
+    }
+    //Lọc order theo tên nhân viên bán
+    @GetMapping("/filterStaffName")
+    public List<Order> getOrdersByStaffName(@RequestParam("key") String key){
+        return orderService.getOrdersByStaffName(key);
+    }
+    //Lọc order theo tên khách hàng
+    @GetMapping("/filterCustomerName")
+    public List<Order> getOrdersByCustomerName(@RequestParam("key") String key){
+        return orderService.getOrdersByCustomerName(key);
+    }
+    //Lọc order theo id của order
+    @GetMapping("/filterId")
+    public List<Order> getOrdersById(@RequestParam("key") String key){
+        return orderService.getOrdersById(key);
+    }
+    //Lọc order theo trạng thái
+    @GetMapping("/filterStatus")
+    public List<Order> getOrdersByStatus(@RequestParam("status") String status){
+        return orderService.getOrderByStatus(status);
     }
 }

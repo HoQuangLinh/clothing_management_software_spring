@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CustomerRepository extends MongoRepository<Customer,String> {
     //lọc customer theo tên hoặc số điện thoại
-    @Query("{$or:[{name: /?0/i},{phone: /?0/i}]}")
+    @Query("{$or:[{name: {$regex: ?0, $options: i}},{phone: {$regex: ?0, $options: i}}]}")
     List<Customer> getCustomersByNameOrPhone(String key);
     //lộc customer theo khoảng điểm tích lũy
     @Query("{$and: [{point: {$gt : ?0}}, {point: {$lt : ?1}}]}")
