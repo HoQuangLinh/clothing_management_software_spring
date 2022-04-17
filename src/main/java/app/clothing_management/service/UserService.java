@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -41,11 +43,22 @@ public class UserService {
     }
 
     public List<User> filterUser(String key) {
-        return userRepository.getUsersByNameOrPhone(key);
+        List<User> all = userRepository.findAll();
+        List<User> result = new ArrayList<>();
+        for(User u : all){
+            if(u.getId().toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT)) ||
+                u.getFullname().toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT)) ||
+                u.getPhone().contains(key)){
+                result.add(u);
+            }
+        }
+        return result;
     }
+
     public List<User> getUsersByPosition(String position){
         return userRepository.getUsersByPosition(position);
     }
+
     public ResponseEntity<String> update(User user, String id){
         try {
             Optional<User> userData = userRepository.findById(id);
