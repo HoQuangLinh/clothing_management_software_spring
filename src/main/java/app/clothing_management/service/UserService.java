@@ -70,6 +70,7 @@ public class UserService {
                 _user.setEmail(user.getEmail());
                 _user.setGender(user.getGender());
                 _user.setPosition(user.getPosition());
+                _user.setPhone(user.getPhone());
                 if(user.getImgUrl()!=null){
                     _user.setImgUrl(user.getImgUrl());
                 }
