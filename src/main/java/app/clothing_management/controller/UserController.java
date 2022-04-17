@@ -70,6 +70,7 @@ public class UserController {
                                              @PathVariable("id") String id
                                             ,@RequestParam(required = false) MultipartFile image){
         UploadImage(user, image);
+        System.out.println(user.getImgUrl());
         return userService.update(user, id);
     }
 

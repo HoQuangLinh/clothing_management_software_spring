@@ -57,7 +57,10 @@ public class UserService {
                 _user.setEmail(user.getEmail());
                 _user.setGender(user.getGender());
                 _user.setPosition(user.getPosition());
-                _user.setImgUrl(user.getImgUrl());
+                if(user.getImgUrl()!=null){
+                    _user.setImgUrl(user.getImgUrl());
+                }
+
                 userRepository.save(_user);
             }
         } catch (Exception e){
