@@ -41,4 +41,7 @@ public class ProductService {
          return ResponseEntity.ok().body(updatedProduct);
     }
 
+    public List<Product> getProductByCategoryId(String categoryId) {
+        return productRepository.getProductsByCategoryId( categoryId);
+    }
 }

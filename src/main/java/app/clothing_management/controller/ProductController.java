@@ -70,6 +70,11 @@ public class ProductController {
         UploadImage(product, image);
         return productService.update(product,id);
     }
-
+    //Filter products by Categories
+    @GetMapping("/api/products/productsByCategoryId/{categoryId}")
+    public List<Product> getProductsByCategoryId(@PathVariable String categoryId){
+        //return categoryId;
+        return productService.getProductByCategoryId(categoryId);
+    }
 
 }
