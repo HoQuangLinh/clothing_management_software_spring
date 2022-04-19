@@ -19,6 +19,7 @@ public class Customer {
     private String gender;
     private Integer point;
     private List<String> listOrders = new ArrayList<>();
+    private Integer totalPrice = 0;
 
     public void setListOrders(String orderId){listOrders.add(orderId);}
 }
