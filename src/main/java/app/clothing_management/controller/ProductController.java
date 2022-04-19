@@ -1,10 +1,12 @@
 package app.clothing_management.controller;
 
 import app.clothing_management.config.CloudinaryConfig;
+import app.clothing_management.config.QRCodeGenerator;
 import app.clothing_management.model.Product;
 import app.clothing_management.service.ProductService;
 
 import com.cloudinary.utils.ObjectUtils;
+import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +46,25 @@ public class ProductController {
      */
     @PostMapping(value = "/api/products/add",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Product createProduct(Product product, @RequestParam(required = false) MultipartFile image )  {
-        //return productService.save(product);
+
         UploadImage(product, image);
-        return productService.save(product);
+       var newProduct= productService.save(product);
+        String productId= newProduct.getId();
+        //get Qrcode from productId
+        byte[] imageQr=new byte[0];
+        try {
+            imageQr= QRCodeGenerator.getQRCodeImage(productId,200,200);
+            Map uploadResult= null;
+            uploadResult = cloudinaryConfig.
+                    upload(imageQr, ObjectUtils.asMap("resource_type", "auto", "overwrite", true));
+            newProduct.setQrCodeUrl(uploadResult.get("url").toString());
+            return productService.save(newProduct);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
 
     }
 
@@ -75,6 +93,23 @@ public class ProductController {
     public List<Product> getProductsByCategoryId(@PathVariable String categoryId){
         //return categoryId;
         return productService.getProductByCategoryId(categoryId);
+    }
+    @GetMapping("/api/products/qr")
+    public String getQr(){
+        String medium="https://rahul26021999.medium.com/";
+        byte[] image=new byte[0];
+        try {
+            image= QRCodeGenerator.getQRCodeImage(medium,200,200);
+            Map uploadResult= null;
+            uploadResult = cloudinaryConfig.
+                    upload(image, ObjectUtils.asMap("resource_type", "auto", "overwrite", true));
+            return uploadResult.get("url").toString();
+        } catch (WriterException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
