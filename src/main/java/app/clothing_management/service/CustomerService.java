@@ -25,4 +25,7 @@ public class CustomerService {
     public Customer getCustomerMaxPoint(){
         return customerRepository.findAll(Sort.by(Sort.Direction.DESC, "point")).get(0);
     }
+    public List<Customer> getCustomerByRangeOfTotalPrice(int minTotal, int maxTotal){
+        return customerRepository.getCustomerByRangeOfTotalPrice(minTotal, maxTotal);
+    }
 }

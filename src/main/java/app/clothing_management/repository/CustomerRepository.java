@@ -14,4 +14,7 @@ public interface CustomerRepository extends MongoRepository<Customer,String> {
     //lộc customer theo khoảng điểm tích lũy
     @Query("{$and: [{point: {$gt : ?0}}, {point: {$lt : ?1}}]}")
     List<Customer> getCustomerByRangeOfPoint(int minPoint, int maxPoint);
+    //lộc customer theo khoảng điểm tích lũy
+    @Query("{$and: [{totalPrice: {$gt : ?0}}, {totalPrice: {$lt : ?1}}]}")
+    List<Customer> getCustomerByRangeOfTotalPrice(int minTotal, int maxTotal);
 }

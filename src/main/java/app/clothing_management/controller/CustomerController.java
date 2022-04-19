@@ -45,4 +45,10 @@ public class CustomerController {
     public Customer filterCustomerMaxPoint(){
         return customerService.getCustomerMaxPoint();
     }
+    //Lọc customer theo khoảng tổng tiền
+    @GetMapping("/filterTotalPrice")
+    public List<Customer> filterCustomerByRangeOfTotalPrice(@RequestParam("minTotal") int minTotal,
+                                                            @RequestParam("maxTotal") int maxTotal){
+        return customerService.getCustomerByRangeOfTotalPrice(minTotal, maxTotal);
+    }
 }
