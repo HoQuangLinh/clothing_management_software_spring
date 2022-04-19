@@ -31,6 +31,7 @@ public class OrderService {
         Customer customer = customerRepository.findById(order.getCustomer().getId()).get();
         customer.setListOrders(newOrder.getId());
         customer.setPoint(customer.getPoint()+point);
+        customer.setTotalPrice(customer.getTotalPrice()+order.getOrderTotal());
         customerRepository.save(customer);
         return newOrder;
     }
