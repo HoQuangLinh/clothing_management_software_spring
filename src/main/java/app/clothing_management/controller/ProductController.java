@@ -48,12 +48,12 @@ public class ProductController {
     public Product createProduct(Product product, @RequestParam(required = false) MultipartFile image )  {
 
         UploadImage(product, image);
-       var newProduct= productService.save(product);
+        var newProduct= productService.save(product);
         String productId= newProduct.getId();
         //get Qrcode from productId
         byte[] imageQr=new byte[0];
         try {
-            imageQr= QRCodeGenerator.getQRCodeImage(productId,200,200);
+            imageQr= QRCodeGenerator.getQRCodeImage(productId,250,250);
             Map uploadResult= null;
             uploadResult = cloudinaryConfig.
                     upload(imageQr, ObjectUtils.asMap("resource_type", "auto", "overwrite", true));
@@ -77,7 +77,7 @@ public class ProductController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            product.setImageUrl(uploadResult.get("url").toString()) ;
+            product.setImageUrl(uploadResult.get("url").toString());
 
         }
     }
@@ -94,6 +94,8 @@ public class ProductController {
         //return categoryId;
         return productService.getProductByCategoryId(categoryId);
     }
+
+    //Test Qr code
     @GetMapping("/api/products/qr")
     public String getQr(){
         String medium="https://rahul26021999.medium.com/";
