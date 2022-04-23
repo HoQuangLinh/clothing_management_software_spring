@@ -31,7 +31,10 @@ public class ProductService {
          }
          var _product=productData.get();
          _product.setName(product.getName());
-         _product.setImageUrl(product.getImageUrl());
+         if(product.getImageUrl()!=null){
+             _product.setImageUrl(product.getImageUrl());
+         }
+
          _product.setCategoryId(product.getCategoryId());
          _product.setCostPrice(product.getCostPrice());
          _product.setDiscount(product.getDiscount());
