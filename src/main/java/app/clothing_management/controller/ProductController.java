@@ -113,5 +113,10 @@ public class ProductController {
         }
         return null;
     }
+    //Delete a product
+    @DeleteMapping("/api/products/delete/{id}")
+    public ResponseEntity<String> deleteProductById(@PathVariable String id){
+        return productService.deleteProductById(id);
+    }
 
 }

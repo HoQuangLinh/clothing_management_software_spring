@@ -47,4 +47,12 @@ public class ProductService {
     public List<Product> getProductByCategoryId(String categoryId) {
         return productRepository.getProductsByCategoryId( categoryId);
     }
+    public ResponseEntity<String> deleteProductById(String id){
+        var product=productRepository.findById(id);
+        if(product.isPresent()){
+            productRepository.delete(product.get());
+            return new ResponseEntity<>("Delete product successfully",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Product not exist ",HttpStatus.NOT_FOUND);
+    }
 }
