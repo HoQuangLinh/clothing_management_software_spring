@@ -12,9 +12,9 @@ public interface CustomerRepository extends MongoRepository<Customer,String> {
     @Query("{$or:[{_id: {$regex: ?0, $options: i}},{name: {$regex: ?0, $options: i}},{phone: {$regex: ?0, $options: i}}]}")
     List<Customer> getCustomersByNameOrPhone(String key);
     //lộc customer theo khoảng điểm tích lũy
-    @Query("{$and: [{point: {$gt : ?0}}, {point: {$lt : ?1}}]}")
+    @Query("{$and: [{point: {$gte : ?0}}, {point: {$lte : ?1}}]}")
     List<Customer> getCustomerByRangeOfPoint(int minPoint, int maxPoint);
     //lộc customer theo khoảng điểm tích lũy
-    @Query("{$and: [{totalPrice: {$gt : ?0}}, {totalPrice: {$lt : ?1}}]}")
+    @Query("{$and: [{totalPrice: {$gte : ?0}}, {totalPrice: {$lte : ?1}}]}")
     List<Customer> getCustomerByRangeOfTotalPrice(int minTotal, int maxTotal);
 }
