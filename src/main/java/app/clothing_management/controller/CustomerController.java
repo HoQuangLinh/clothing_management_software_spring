@@ -31,8 +31,8 @@ public class CustomerController {
     }
     //Lọc customer theo tên hoặc số điện thoại
     @GetMapping("/filter")
-    public List<Customer> filterCustomerByNameOrPhone(@RequestParam("key") String key){
-        return customerService.getCustomersByNameOrPhone(key);
+    public List<Customer> filterCustomer(@RequestParam("key") String key){
+        return customerService.filterCustomer(key);
     }
     //Lọc customer theo khoảng điểm tích lũy
     @GetMapping("/filterPoint")
