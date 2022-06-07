@@ -45,6 +45,7 @@ public class ProductService {
     }
 
     public List<Product> getProductByCategoryId(String categoryId) {
+
         return productRepository.getProductsByCategoryId( categoryId);
     }
     public ResponseEntity<String> deleteProductById(String id){

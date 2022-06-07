@@ -92,7 +92,11 @@ public class ProductController {
     @GetMapping("/api/products/productsByCategoryId/{categoryId}")
     public List<Product> getProductsByCategoryId(@PathVariable String categoryId){
         //return categoryId;
-        return productService.getProductByCategoryId(categoryId);
+        var productsList= productService.getProductByCategoryId(categoryId);
+        if(productsList.size()==0){
+            productsList=productService.getAllProducts();
+        }
+        return  productsList;
     }
 
     //Test Qr code
