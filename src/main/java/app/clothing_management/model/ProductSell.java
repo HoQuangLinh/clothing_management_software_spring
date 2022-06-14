@@ -4,21 +4,21 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class ProductSell {
-    private String id;
+    private String _id;
     private String productName;
-    private Integer quantity;
+    private Integer sellQuantity;
     private Double profit;
     private Double revenue;
 
     public ProductSell() {
     }
 
-    public String getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getProductName() {
@@ -29,12 +29,12 @@ public class ProductSell {
         this.productName = productName;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getSellQuantity() {
+        return sellQuantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setSellQuantity(Integer sellQuantity) {
+        this.sellQuantity = sellQuantity;
     }
 
     public Double getProfit() {
