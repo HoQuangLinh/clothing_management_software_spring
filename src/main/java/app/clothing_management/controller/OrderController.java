@@ -55,6 +55,10 @@ public class OrderController {
         order.setSubTotal(subTotal);
         order.setDiscount(discount);
         order.setOrderTotal(orderTotal);
+
+        if(customer.getName().equals("Khách lẻ")){
+            point = 0;
+        }
        try {
            Order newOrder = orderService.confirmOrder(order,orderDetails,point);
            return new ResponseEntity<>(newOrder,HttpStatus.OK);
@@ -63,6 +67,7 @@ public class OrderController {
        }
     }
     public List<OrderDetail> convertStringToOrderDetail(String s){
+        System.out.println(s);
         List<OrderDetail> orderDetails = new ArrayList<>();
         String ss = s.substring(1, s.length() - 1);
         String[] arr = ss.split(",");
@@ -70,6 +75,7 @@ public class OrderController {
             if (i % 2 == 0) {
                 OrderDetail orderDetail = new OrderDetail();
                 String productId = arr[i].substring(14, arr[i].length() - 1);
+                System.out.println(productId);
                 Product product = productService.getProductById(productId);
                 orderDetail.setProduct(product);
                 String quantity = arr[i+1].substring(12, arr[i+1].length() - 2);
