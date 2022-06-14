@@ -32,11 +32,11 @@ public class RevenueService {
         Set<Product> set = sum.keySet();
         for (Product p : set){
             ProductSell sellProduct = new ProductSell();
-            sellProduct.setId(p.getId());
+            sellProduct.set_id(p.getId());
             sellProduct.setProductName(p.getName());
-            sellProduct.setQuantity(sum.get(p));
-            sellProduct.setRevenue(sellProduct.getQuantity()*p.getCostPrice());
-            sellProduct.setProfit(sellProduct.getRevenue()-p.getOriginPrice()* sellProduct.getQuantity());
+            sellProduct.setSellQuantity(sum.get(p));
+            sellProduct.setRevenue(sellProduct.getSellQuantity()*p.getCostPrice());
+            sellProduct.setProfit(sellProduct.getRevenue()-p.getOriginPrice()* sellProduct.getSellQuantity());
             sellProducts.add(sellProduct);
         }
         return sellProducts;
@@ -55,11 +55,11 @@ public class RevenueService {
         Set<Product> set = sum.keySet();
         for (Product p : set){
             ProductSell sellProduct = new ProductSell();
-            sellProduct.setId(p.getId());
+            sellProduct.set_id(p.getId());
             sellProduct.setProductName(p.getName());
-            sellProduct.setQuantity(sum.get(p));
-            sellProduct.setRevenue(sellProduct.getQuantity()*p.getCostPrice());
-            sellProduct.setProfit(sellProduct.getRevenue()-p.getOriginPrice()* sellProduct.getQuantity());
+            sellProduct.setSellQuantity(sum.get(p));
+            sellProduct.setRevenue(sellProduct.getSellQuantity()*p.getCostPrice());
+            sellProduct.setProfit(sellProduct.getRevenue()-p.getOriginPrice()* sellProduct.getSellQuantity());
             sellProducts.add(sellProduct);
         }
         return sellProducts;

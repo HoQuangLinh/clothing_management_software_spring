@@ -63,6 +63,7 @@ public class OrderController {
        }
     }
     public List<OrderDetail> convertStringToOrderDetail(String s){
+        System.out.println(s);
         List<OrderDetail> orderDetails = new ArrayList<>();
         String ss = s.substring(1, s.length() - 1);
         String[] arr = ss.split(",");
