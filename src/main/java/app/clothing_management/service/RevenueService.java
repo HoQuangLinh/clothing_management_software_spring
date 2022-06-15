@@ -24,10 +24,14 @@ public class RevenueService {
     MongoTemplate mongoTemplate;
     // Lấy tất cả các sản phẩm đã bán và số lượng đã bán, tiền lời, doanh thu.
     public List<ProductSell> getProductsSell(){
-        List<OrderDetail> orderDetails = orderDetailRepository.findAll();
-        Map<Product, Integer> sum = orderDetails.stream().collect(
-                Collectors.groupingBy(OrderDetail::getProduct, Collectors.summingInt(OrderDetail::getQuantity))
-        );
+        List<Order> orders = orderRepository.findAll();
+        Map<Product, Integer> sum = new HashMap<>();
+        for(Order o : orders){
+            for(OrderDetail orderDetail : o.getOrderDetails()){
+                int quantity = sum.get(orderDetail.getProduct()) == null ? 0 : sum.get(orderDetail.getProduct());
+                sum.put(orderDetail.getProduct(), orderDetail.getQuantity() + quantity);
+            }
+        }
         List<ProductSell> sellProducts = new ArrayList<>();
         Set<Product> set = sum.keySet();
         for (Product p : set){
@@ -44,11 +48,12 @@ public class RevenueService {
 
     // Lọc sản phẩm đã bán theo khảng thời gian
     public List<ProductSell> getProductsSellByDate(Date from, Date to){
-        List<Order> orders = orderRepository.getOrderByDateOrderBetween(from, to);
+        List<Order> orders = orderRepository.getOrdersByRangeOfDate(from, to);
         Map<Product, Integer> sum = new HashMap<>();
         for(Order o : orders){
             for(OrderDetail orderDetail : o.getOrderDetails()){
-                sum.put(orderDetail.getProduct(), orderDetail.getQuantity());
+                int quantity = sum.get(orderDetail.getProduct()) == null ? 0 : sum.get(orderDetail.getProduct());
+                sum.put(orderDetail.getProduct(), orderDetail.getQuantity() + quantity);
             }
         }
         List<ProductSell> sellProducts = new ArrayList<>();
