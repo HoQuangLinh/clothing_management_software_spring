@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface OrderRepository extends MongoRepository<Order, String> {
     List<Order> getOrderByDateOrderBetween(Date from, Date to);
-    @Query("{$and: [{dateOrder: {$gt : ?0}}, {dateOrder: {$lt : ?1}}]}")
+    @Query("{$and: [{dateOrder: {$gte : ?0}}, {dateOrder: {$lte : ?1}}]}")
     List<Order> getOrdersByRangeOfDate(Date begin, Date end);
     List<Order> findOrderByStatus(String status);
 }

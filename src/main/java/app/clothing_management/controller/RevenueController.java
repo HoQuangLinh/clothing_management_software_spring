@@ -30,15 +30,28 @@ public class RevenueController {
     @PostMapping("/api/revenue/product/sellByDate")
     public List<ProductSell> getProductSellByDate(@RequestBody ObjectNode objectNode){
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println(objectNode);
             String from = objectNode.get("fromDate").asText();
             String to = objectNode.get("toDate").asText();
-            Date _from = formatter.parse(from);
-            Date _to = formatter.parse(to);
+
+            System.out.println(from);
+            System.out.println(to);
+            from = formatStringDate(from);
+            to = formatStringDate(to);
+
+            SimpleDateFormat format = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
+
+            Date _from = format.parse(from);
+            Date _to = format.parse(to);
             return revenueService.getProductsSellByDate(_from, _to);
         } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public String formatStringDate(String date){
+        String[] parts = date.split(" ");
+        String result = parts[0] + ", " + parts[1] + " " + parts[2] + " " + parts[3] + " " + parts[4];
+        return result;
     }
 }
